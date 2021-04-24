@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 196113876}
   - component: {fileID: 196113877}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dc9b74db7c0b194ab5f15bbe057d6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.22
+  speed: 5
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,8 +281,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AssetsPPU: 100
-  m_RefResolutionX: 320
-  m_RefResolutionY: 180
+  m_RefResolutionX: 460
+  m_RefResolutionY: 460
   m_UpscaleRT: 1
   m_PixelSnapping: 0
   m_CropFrameX: 0
