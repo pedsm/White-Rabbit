@@ -13,6 +13,11 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public Animator animator;
 
+    private float maxYVel = 0;
+    private float fallDmgThreshold = 10f;
+
+    public int hp = 100;
+
     public GameObject audioController;
 
     // Start is called before the first frame update
@@ -28,6 +33,7 @@ public class PlayerController : MonoBehaviour
         Move();
         Jump();
         CheckIfGrounded();
+        FallDamageChecker();
     }
 
     void Move()
@@ -45,17 +51,34 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isJumping", !isGrounded);
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
+            maxYVel = 0;
             body.velocity = Vector2.up * jumpForce;
         }
 
     }
 
+    void FallDamageChecker() {
+        if(!isGrounded) {
+            if(maxYVel > body.velocity.y) {
+                maxYVel = body.velocity.y;
+            }
+        }
+        if(isGrounded && body.velocity.y == 0) {
+            float absoluteVel = Mathf.Abs(maxYVel);
+            if(absoluteVel > fallDmgThreshold) {
+                print("Take damage" + maxYVel.ToString());
+                takeDamage(Mathf.Pow(absoluteVel - fallDmgThreshold, 2));
+                maxYVel = 0;
+            }
+        }
+    }
+
+    void takeDamage(float dmgValue) {
+        hp = hp - Mathf.RoundToInt(dmgValue);
+    }
+
     void CheckIfGrounded() {
         Collider2D collider = Physics2D.OverlapCircle(isGroundedChecker.position, checkGroundRadius, groundLayer);
-        if (collider != null) {
-            isGrounded = true;
-        } else {
-            isGrounded = false;
-        }
+        isGrounded = collider != null;
     }
 }
