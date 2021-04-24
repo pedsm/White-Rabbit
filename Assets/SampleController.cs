@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum soundName
+public enum SoundName
 {
     SOUNDTRACK,
     JUMP
@@ -20,12 +20,17 @@ public class SampleController : MonoBehaviour {
 
         sounds = GetComponents<AudioSource>();
 
-        soundtrack = sounds[(int)soundName.SOUNDTRACK];
-        jump = sounds[(int)soundName.JUMP];
+        soundtrack = sounds[(int)SoundName.SOUNDTRACK];
+        jump = sounds[(int)SoundName.JUMP];
 
     }
 
-    public void playJump() {
-        jump.Play();
+    public void playSound(SoundName soundName) {
+        sounds[(int)soundName].Play();
+
     }
+
+    // public void playJump() {
+    //     jump.Play();
+    // }
 }

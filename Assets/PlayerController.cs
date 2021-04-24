@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
             jumpTimeCounter = jumpTime;
             maxYVel = 0;
             body.velocity = new Vector2(body.velocity.x, jumpForce);
-            sampleController.playJump();
+            sampleController.playSound(SoundName.JUMP);
         }
 
         if(Input.GetKey(KeyCode.Space) && isJumping == true) {
