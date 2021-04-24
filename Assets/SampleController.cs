@@ -6,7 +6,8 @@ public enum SoundName
 {
     SOUNDTRACK,
     JUMP,
-    LAND
+    LAND,
+    DAMAGED
 }
 
 public class SampleController : MonoBehaviour {
@@ -17,6 +18,7 @@ public class SampleController : MonoBehaviour {
     private AudioSource soundtrack;
     private AudioSource jump;
     private AudioSource land;
+    private AudioSource damaged;
 
     void Start() {
 
@@ -25,6 +27,7 @@ public class SampleController : MonoBehaviour {
         soundtrack = sounds[(int)SoundName.SOUNDTRACK];
         jump = sounds[(int)SoundName.JUMP];
         land = sounds[(int)SoundName.LAND];
+        damaged = sounds[(int)SoundName.DAMAGED];
 
     }
 

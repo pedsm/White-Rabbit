@@ -95,12 +95,12 @@ public class PlayerController : MonoBehaviour
             // playing fall sound with differing volume based on impact
             if (absoluteVel > 2) {
                 sampleController.playSound(SoundName.LAND, absoluteVel/13);
-                print(absoluteVel/13);
             }
             // fall damage calculation
             if(absoluteVel > fallDmgThreshold) {
                 print("Take damage" + maxYVel.ToString());
                 takeDamage(Mathf.Pow(absoluteVel - fallDmgThreshold, 2));
+                sampleController.playSound(SoundName.DAMAGED, absoluteVel/15);
             }
             maxYVel = 0;
         }
