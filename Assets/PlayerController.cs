@@ -5,7 +5,11 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody2D body;
     public float speed = 2;
-    public float jumpForce = 5;
+    public float jumpForce = 2;
+    bool isGrounded = false;
+    public Transform isGroundedChecker;
+    public float checkGroundRadius = 0.06f;
+    public LayerMask groundLayer;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Jump();
+        CheckIfGrounded();
     }
 
     void Move()
@@ -30,10 +35,19 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             body.velocity = Vector2.up * jumpForce;
         }
 
+    }
+
+    void CheckIfGrounded() {
+        Collider2D collider = Physics2D.OverlapCircle(isGroundedChecker.position, checkGroundRadius, groundLayer);
+        if (collider != null) {
+            isGrounded = true;
+        } else {
+            isGrounded = false;
+        }
     }
 }
