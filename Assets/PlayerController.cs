@@ -19,16 +19,18 @@ public class PlayerController : MonoBehaviour
 
     private float maxYVel = 0;
     private float fallDmgThreshold = 10f;
+    public SampleController sampleController;
 
     public int hp = 100;
 
-    public GameObject audioController;
+
 
     // Start is called before the first frame update
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        
     }
 
     // Update is called once per frame
@@ -64,6 +66,7 @@ public class PlayerController : MonoBehaviour
             jumpTimeCounter = jumpTime;
             maxYVel = 0;
             body.velocity = new Vector2(body.velocity.x, jumpForce);
+            sampleController.playJump();
         }
 
         if(Input.GetKey(KeyCode.Space) && isJumping == true) {
