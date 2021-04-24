@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public Animator animator;
 
+    public GameObject audioController;
+
     // Start is called before the first frame update
     void Start()
     {
