@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D body;
     SpriteRenderer spriteRenderer;
     public float speed = 2;
-    public float jumpForce = 2;
+    public float jumpForce = 5;
 
     private float jumpTimeCounter = 0.35f;
     public float jumpTime;
@@ -34,10 +34,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
-        Jump();
-        CheckIfGrounded();
-        FallDamageChecker();
+        if(isAlive()) {
+            Move();
+            Jump();
+            CheckIfGrounded();
+            FallDamageChecker();
+        } else {
+            animator.SetBool("Alive", isAlive());
+            animator.SetBool("isJumping", false);
+        }
     }
 
     void Move()
@@ -58,12 +63,12 @@ public class PlayerController : MonoBehaviour
             isJumping = true;
             jumpTimeCounter = jumpTime;
             maxYVel = 0;
-            body.velocity = new Vector2(body.velocity.x, 1 * jumpForce);
+            body.velocity = new Vector2(body.velocity.x, jumpForce);
         }
 
         if(Input.GetKey(KeyCode.Space) && isJumping == true) {
             if (jumpTimeCounter > 0) {
-                body.velocity = new Vector2(body.velocity.x, 1 * jumpForce);
+                body.velocity = new Vector2(body.velocity.x, jumpForce);
                 jumpTimeCounter -= Time.deltaTime;
             } else {
                 isJumping = false;
@@ -99,5 +104,9 @@ public class PlayerController : MonoBehaviour
     void CheckIfGrounded() {
         Collider2D collider = Physics2D.OverlapCircle(isGroundedChecker.position, checkGroundRadius, groundLayer);
         isGrounded = collider != null;
+    }
+
+    bool isAlive() {
+        return hp > 0;
     }
 }

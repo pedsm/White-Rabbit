@@ -319,7 +319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jumpForce: 4
+  jumpForce: 5
   jumpTime: 0.35
   isGroundedChecker: {fileID: 2126132216}
   checkGroundRadius: 0.06
@@ -509,7 +509,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 361490716}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
