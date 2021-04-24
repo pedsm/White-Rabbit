@@ -7,6 +7,10 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer spriteRenderer;
     public float speed = 2;
     public float jumpForce = 2;
+
+    private float jumpTimeCounter = 0.35f;
+    public float jumpTime;
+    private bool isJumping;
     bool isGrounded = false;
     public Transform isGroundedChecker;
     public float checkGroundRadius = 0.06f;
@@ -51,8 +55,23 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isJumping", !isGrounded);
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
+            isJumping = true;
+            jumpTimeCounter = jumpTime;
             maxYVel = 0;
-            body.velocity = Vector2.up * jumpForce;
+            body.velocity = new Vector2(body.velocity.x, 1 * jumpForce);
+        }
+
+        if(Input.GetKey(KeyCode.Space) && isJumping == true) {
+            if (jumpTimeCounter > 0) {
+                body.velocity = new Vector2(body.velocity.x, 1 * jumpForce);
+                jumpTimeCounter -= Time.deltaTime;
+            } else {
+                isJumping = false;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space)) {
+            isJumping = false;
         }
 
     }
