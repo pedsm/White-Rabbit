@@ -40,7 +40,6 @@ public class HeliSkull : MonoBehaviour
             Vector2 playerPos = player.body.position;
             Vector2 enemyPos = body.position;
             Vector2 deltaVector = (playerPos - enemyPos);
-            print(deltaVector);
             player.isJumping = false;
             player.body.AddForce(deltaVector.normalized * 10, ForceMode2D.Impulse);
 
