@@ -54,8 +54,7 @@ public class PlayerController : MonoBehaviour
         Vector2 targetVelocity = new Vector2(xDelta, body.velocity.y);
         Vector2 velocity = body.velocity;
         Vector2 velocityChange = targetVelocity - velocity;
-        // body.velocity = new Vector2(xDelta, body.velocity.y);
-        body.AddForce(velocityChange);
+        body.AddForce(velocityChange, ForceMode2D.Impulse);
     }
 
 

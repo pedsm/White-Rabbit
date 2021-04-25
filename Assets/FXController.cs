@@ -15,7 +15,7 @@ public class FXController : MonoBehaviour
     float bloomIntesity = 0f;
     float lensDistortionIntesity = 0f;
 
-    public float decayValue = 0.001f;
+    public float decayValue = 0.03f;
     
     // Start is called before the first frame update
     void Start()
@@ -42,7 +42,7 @@ public class FXController : MonoBehaviour
     }
 
     float decayWithMin(float value) {
-        value = value - decayValue;
+        value = value - (value * decayValue);
         if(value <= 0f) {
             value = 0f;
         }
@@ -52,8 +52,12 @@ public class FXController : MonoBehaviour
     public void chromaticHit() {
         chromaticAberrationIntesity = 1f;
     }
+
     public void bloomHit() {
-        bloomIntesity = 1f;
+        bloomHit(1f);
+    }
+    public void bloomHit(float intensity) {
+        bloomIntesity = intensity;
     }
     public void lensHit() {
         lensDistortionIntesity = 1f;
