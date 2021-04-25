@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody2D body;
+    public Rigidbody2D body;
     SpriteRenderer spriteRenderer;
     public float speed = 2;
     public float jumpForce = 5;
@@ -116,4 +116,5 @@ public class PlayerController : MonoBehaviour
     bool isAlive() {
         return hp > 0;
     }
+
 }

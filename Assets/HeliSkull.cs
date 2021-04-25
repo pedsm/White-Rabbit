@@ -36,13 +36,16 @@ public class HeliSkull : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision) {
         if(collision.collider.name == "Player") {
-            //Collide with player
             PlayerController player = collision.collider.GetComponent<PlayerController>();
-            FXController fXController = GameObject.Find("FX").GetComponent<FXController>();
-            print(fXController);
-            fXController.chromaticHit();
-            fXController.bloomHit();
-            fXController.lensHit();
+            Vector2 playerPos = player.body.position;
+
+            triggerEffects();
         }
+    }
+    void triggerEffects() {
+        FXController fXController = GameObject.Find("FX").GetComponent<FXController>();
+        fXController.chromaticHit();
+        fXController.bloomHit();
+
     }
 }
