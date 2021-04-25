@@ -40,6 +40,7 @@ public class FXController : MonoBehaviour
             }
             lensDistortion.intensity.Override(Mathf.Lerp(0, 1f, tripPercent));
             lensDistortion.scale.Override(Mathf.Lerp(1f, 0.01f, tripPercent));
+            chromaticAberration.intensity.Override(Mathf.Lerp(0.2f, 1f, tripPercent));
             if(Time.time - tripStart > 10) {
                 tripping = false;
                 lensDistortion.intensity.Override(0);
