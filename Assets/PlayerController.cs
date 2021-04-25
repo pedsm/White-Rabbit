@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     private float fallDmgThreshold = 10f;
     public SampleController sampleController;
 
+    private int? lastContactCount = null;
+
     public int hp = 100;
 
     // Start is called before the first frame update
@@ -38,8 +40,9 @@ public class PlayerController : MonoBehaviour
             Move();
             Jump();
             CheckIfGrounded();
-            FallDamageChecker();
+            // FallDamageChecker();
         } else {
+            body.velocity = new Vector2(0,0);
             animator.SetBool("Alive", isAlive());
             animator.SetBool("isJumping", false);
         }
@@ -111,6 +114,49 @@ public class PlayerController : MonoBehaviour
             }
             maxYVel = 0;
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision) {
+        if(collision.collider.name == "Floors_Walls") {
+            collide(collision);
+        }
+    }
+    void collide(Collision2D collision) {
+        float absoluteVel = collision.relativeVelocity.magnitude;
+        if (absoluteVel > 2) {
+            sampleController.playSound(SoundName.LAND, absoluteVel/13);
+        }
+        if(absoluteVel > fallDmgThreshold) {
+            print("Take damage" + maxYVel.ToString());
+            takeDamage(Mathf.Pow(absoluteVel - fallDmgThreshold, 2));
+            sampleController.playSound(SoundName.DAMAGED, absoluteVel/15);
+        }
+        var contacts = new List<ContactPoint2D>();
+        collision.GetContacts(contacts);
+        foreach(var contact in contacts) {
+            var magnitude = contact.point.magnitude / 100;
+            Debug.DrawRay(
+                new Vector3(contact.point.x, contact.point.y, 0f),
+                new Vector3(contact.normal.x * magnitude, contact.normal.y * magnitude, 0f),
+                Color.red,
+                1f
+            );
+        }
+        lastContactCount = collision.contactCount;
+    }
+
+    void OnCollisionStay2D(Collision2D collision) {
+        if(collision.collider.name == "Floors_Walls") {
+            var normal = collision.GetContact(0).normal;
+            if(collision.contactCount == lastContactCount) {
+                return;
+            }
+            collide(collision);
+        }
+        
+    }
+    void OnCollisionExit2D(Collision2D other) {
+        lastContactCount = null;
     }
 
     void takeDamage(float dmgValue) {

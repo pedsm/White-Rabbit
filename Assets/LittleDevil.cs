@@ -7,7 +7,6 @@ public class LittleDevil : MonoBehaviour
     public Vector2 vel;
     Rigidbody2D body;
     float nextChangeDir = 0f;
-    float changeTime = 2f;
 
     void Start()
     {
