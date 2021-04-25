@@ -14,6 +14,8 @@ public class FXController : MonoBehaviour
     float chromaticAberrationIntesity = 0f;
     float bloomIntesity = 0f;
     float lensDistortionIntesity = 0f;
+    bool tripping = false;
+    public float tripStart = 0;
 
     public float decayValue = 0.03f;
     
@@ -31,14 +33,30 @@ public class FXController : MonoBehaviour
     {
         chromaticAberration.intensity.Override(chromaticAberrationIntesity);
         bloom.intensity.Override(bloomIntesity);
-        lensDistortion.intensity.Override(lensDistortionIntesity);
+        if(tripping) {
+            float tripPercent = (Time.time - tripStart)/5;
+            if(tripPercent > 1) {
+                tripPercent = 2 - tripPercent;
+            }
+            Debug.Log(Time.time - tripStart);
+            lensDistortion.intensity.Override(Mathf.Lerp(0, 1f, tripPercent));
+            lensDistortion.scale.Override(Mathf.Lerp(1f, 0.01f, tripPercent));
+            if(Time.time - tripStart > 10) {
+                tripping = false;
+                lensDistortion.intensity.Override(0);
+                lensDistortion.scale.Override(1f);
+            }
+        }
         decay();
     }
 
     void decay() {
         chromaticAberrationIntesity = decayWithMin(chromaticAberrationIntesity);
         bloomIntesity = decayWithMin(bloomIntesity);
-        lensDistortionIntesity = decayWithMin(lensDistortionIntesity);
+        // lensDistortionIntesity = decayWithMin(lensDistortionIntesity);
+        if(tripping) {
+            lensDistortionIntesity = Mathf.Sin(Time.time);
+        }
     }
 
     float decayWithMin(float value) {
@@ -61,5 +79,13 @@ public class FXController : MonoBehaviour
     }
     public void lensHit() {
         lensDistortionIntesity = 1f;
+    }
+
+    public void trip() {
+        Debug.Log("Start trip");
+        lensDistortionIntesity = 1f;
+        lensDistortion.scale.Override(0.54f);
+        tripping = true;
+        tripStart = Time.time;
     }
 }

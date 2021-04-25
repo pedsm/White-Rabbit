@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private float maxYVel = 0;
     private float fallDmgThreshold = 10f;
     public SampleController sampleController;
+    private bool flipped = false;
 
     private int? lastContactCount = null;
 
@@ -50,8 +51,8 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        spriteRenderer.flipX = x < 0;
+        float x = flipped ? Input.GetAxisRaw("Horizontal") * -1 : Input.GetAxisRaw("Horizontal") ;
+        spriteRenderer.flipX = flipped ? x > 0 : x < 0;
         float xDelta = x * speed;
         animator.SetFloat("Speed", Mathf.Abs(xDelta));
         Vector2 targetVelocity = new Vector2(xDelta, body.velocity.y);
@@ -173,9 +174,33 @@ public class PlayerController : MonoBehaviour
         return hp > 0;
     }
 
+    void flip() {
+        if(flipped) {
+            return;
+        }
+        flipped = true;
+        body.gravityScale = -2;
+        GetComponent<Transform>().rotation = Quaternion.Euler(0,0,180f);
+        GameObject.Find("Camera").GetComponent<Camera>().GetComponent<Transform>().rotation = Quaternion.Euler(0,0,180f);
+        jumpForce = jumpForce * -1;
+    }
+
+    void trip() {
+        GameObject.Find("FX").GetComponent<FXController>().trip();
+        fallDmgThreshold = 100f;
+    }
     private void OnTriggerEnter2D(Collider2D trigger) {
         int stage = int.Parse(trigger.name);
+        if(stage == 4) {
+            if(!flipped) {
+                trip();
+            }
+        }
+        if(stage == 5) {
+            flip();
+        }
         sampleController.setCurrentStage(stage);
     }
+
 
 }
