@@ -173,4 +173,9 @@ public class PlayerController : MonoBehaviour
         return hp > 0;
     }
 
+    private void OnTriggerEnter2D(Collider2D trigger) {
+        int stage = int.Parse(trigger.name);
+        sampleController.setCurrentStage(stage);
+    }
+
 }

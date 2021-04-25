@@ -73,6 +73,7 @@ public class SampleController : MonoBehaviour {
 
     public void setCurrentStage(int newStage) {
         if(currentStage < newStage) {
+           Debug.Log("Entering stage: "+ newStage);
            currentStage = newStage;
         }
     }
