@@ -7,7 +7,8 @@ public enum SoundName
     SOUNDTRACK,
     JUMP,
     LAND,
-    DAMAGED
+    DAMAGED,
+    ENEMY_ONE
 }
 
 public class SampleController : MonoBehaviour {
@@ -40,7 +41,4 @@ public class SampleController : MonoBehaviour {
         sounds[(int)soundName].volume = volume;
         sounds[(int)soundName].Play();
     }
-
-
-
 }
