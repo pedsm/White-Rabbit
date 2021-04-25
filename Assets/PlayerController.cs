@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 
     private float jumpTimeCounter = 0.35f;
     public float jumpTime;
-    private bool isJumping;
+    public bool isJumping;
     bool isGrounded = false;
     public Transform isGroundedChecker;
     public float checkGroundRadius = 0.06f;
