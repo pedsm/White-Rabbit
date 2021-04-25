@@ -12,7 +12,9 @@ public enum SoundName
     HIT,
     ARPEG,
     PADS,
-    KICK
+    KICK,
+    BLACKHOLE,
+    OUTRO
 }
 
 public class SampleController : MonoBehaviour {
@@ -22,26 +24,25 @@ public class SampleController : MonoBehaviour {
     private AudioSource[] sounds;
 
     // sound declarations
-    private AudioSource soundtrack;
     private AudioSource jump;
     private AudioSource land;
     private AudioSource damaged;
     private AudioSource hit;
+    private AudioSource blackhole;
+    private AudioSource outro;
+
     private int currentStage = 0;
 
     void Start() {
-
         sounds = GetComponents<AudioSource>();
-
-        soundtrack = sounds[(int)SoundName.SOUNDTRACK];
-        jump = sounds[(int)SoundName.JUMP];
-        land = sounds[(int)SoundName.LAND];
-        damaged = sounds[(int)SoundName.DAMAGED];
-        hit = sounds[(int)SoundName.HIT];
     }
 
     public void playSound(SoundName soundName) {
         sounds[(int)soundName].Play();
+    }
+
+    public void playDelayedSound(SoundName soundName, float delay) {
+        sounds[(int)soundName].PlayDelayed(delay);
     }
 
     public void playSound(SoundName soundName, float volume) {
@@ -87,6 +88,18 @@ public class SampleController : MonoBehaviour {
                 mixer.SetFloat("arpeg_volume", 1f);
                 mixer.SetFloat("pad_volume", 1f);
                 mixer.SetFloat("kick_volume", 1f);
+           }
+           if (currentStage == 4) {
+               //uncoment these if you want to test
+                // mixer.SetFloat("arpeg_volume", 1f);
+                // mixer.SetFloat("pad_volume", 1f);
+                // mixer.SetFloat("kick_volume", 1f);
+                playSound(SoundName.BLACKHOLE);
+                StartCoroutine(StartFade(mixer, "soundtrack_volume", 10f, 0f));
+                // delay and bring in outro
+                // playDelayedSound()
+                playDelayedSound(SoundName.OUTRO, 8f);
+                StartCoroutine(StartFade(mixer, "outro_volume", 6f, 1f));
            }
         }
     }
