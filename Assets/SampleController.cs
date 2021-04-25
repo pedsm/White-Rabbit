@@ -25,6 +25,7 @@ public class SampleController : MonoBehaviour {
     private AudioSource land;
     private AudioSource damaged;
     private AudioSource hit;
+    private int currentStage = 0;
 
     void Start() {
 
@@ -68,5 +69,11 @@ public class SampleController : MonoBehaviour {
             yield return null;
         }
         yield break;
+    }
+
+    public void setCurrentStage(int newStage) {
+        if(currentStage < newStage) {
+           currentStage = newStage;
+        }
     }
 }
