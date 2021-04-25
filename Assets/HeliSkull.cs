@@ -38,6 +38,10 @@ public class HeliSkull : MonoBehaviour
         if(collision.collider.name == "Player") {
             PlayerController player = collision.collider.GetComponent<PlayerController>();
             Vector2 playerPos = player.body.position;
+            Vector2 enemyPos = body.position;
+            Vector2 deltaVector = (playerPos - enemyPos);
+            print(deltaVector);
+            player.body.AddForce(deltaVector.normalized * 10, ForceMode2D.Impulse);
 
             triggerEffects();
         }

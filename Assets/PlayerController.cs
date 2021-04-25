@@ -51,7 +51,11 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.flipX = x < 0;
         float xDelta = x * speed;
         animator.SetFloat("Speed", Mathf.Abs(xDelta));
-        body.velocity = new Vector2(xDelta, body.velocity.y);
+        Vector2 targetVelocity = new Vector2(xDelta, body.velocity.y);
+        Vector2 velocity = body.velocity;
+        Vector2 velocityChange = targetVelocity - velocity;
+        // body.velocity = new Vector2(xDelta, body.velocity.y);
+        body.AddForce(velocityChange);
     }
 
 
@@ -63,13 +67,19 @@ public class PlayerController : MonoBehaviour
             isJumping = true;
             jumpTimeCounter = jumpTime;
             maxYVel = 0;
-            body.velocity = new Vector2(body.velocity.x, jumpForce);
+            Vector2 targetVelocity = new Vector2(body.velocity.x, jumpForce);
+            Vector2 velocity = body.velocity;
+            Vector2 velocityChange = targetVelocity - velocity;
+            body.AddForce(velocityChange, ForceMode2D.Impulse);
             sampleController.playSound(SoundName.JUMP);
         }
 
         if(Input.GetKey(KeyCode.Space) && isJumping == true) {
             if (jumpTimeCounter > 0) {
-                body.velocity = new Vector2(body.velocity.x, jumpForce);
+                Vector2 targetVelocity = new Vector2(body.velocity.x, jumpForce);
+                Vector2 velocity = body.velocity;
+                Vector2 velocityChange = targetVelocity - velocity;
+                body.AddForce(velocityChange, ForceMode2D.Impulse);
                 jumpTimeCounter -= Time.deltaTime;
             } else {
                 isJumping = false;
