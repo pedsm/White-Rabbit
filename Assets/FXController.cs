@@ -38,7 +38,6 @@ public class FXController : MonoBehaviour
             if(tripPercent > 1) {
                 tripPercent = 2 - tripPercent;
             }
-            Debug.Log(Time.time - tripStart);
             lensDistortion.intensity.Override(Mathf.Lerp(0, 1f, tripPercent));
             lensDistortion.scale.Override(Mathf.Lerp(1f, 0.01f, tripPercent));
             if(Time.time - tripStart > 10) {

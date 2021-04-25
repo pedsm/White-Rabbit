@@ -53,9 +53,9 @@ public class SampleController : MonoBehaviour {
         sounds[(int)soundName].Play();
     }
 
-     public static IEnumerator StartFade(AudioMixer audioMixer, string exposedParam, float duration, float targetVolume)
+     public static IEnumerator StartFade(AudioMixer audioMixer, string exposedParam, float duration, float targetVolume, float delay)
     {
-        float currentTime = 0;
+        float currentTime = 0 - delay;
         float currentVol;
         audioMixer.GetFloat(exposedParam, out currentVol);
         currentVol = Mathf.Pow(10, currentVol / 20);
@@ -78,11 +78,11 @@ public class SampleController : MonoBehaviour {
            currentStage = newStage;
 
            if (currentStage == 1) {
-                StartCoroutine(StartFade(mixer, "arpeg_volume", 20f, 1f));
+                StartCoroutine(StartFade(mixer, "arpeg_volume", 20f, 1f, 0f));
            }
            if (currentStage == 2) {
                 mixer.SetFloat("arpeg_volume", 1f);
-                StartCoroutine(StartFade(mixer, "pad_volume", 20f, 1f));
+                StartCoroutine(StartFade(mixer, "pad_volume", 20f, 1f, 0f));
            }
            if (currentStage == 3) {
                 mixer.SetFloat("arpeg_volume", 1f);
@@ -91,15 +91,15 @@ public class SampleController : MonoBehaviour {
            }
            if (currentStage == 4) {
                //uncoment these if you want to test
-                // mixer.SetFloat("arpeg_volume", 1f);
-                // mixer.SetFloat("pad_volume", 1f);
-                // mixer.SetFloat("kick_volume", 1f);
+                mixer.SetFloat("arpeg_volume", 1f);
+                mixer.SetFloat("pad_volume", 1f);
+                mixer.SetFloat("kick_volume", 1f);
                 playSound(SoundName.BLACKHOLE);
-                StartCoroutine(StartFade(mixer, "soundtrack_volume", 10f, 0f));
+                StartCoroutine(StartFade(mixer, "soundtrack_volume", 8f, 0f, 0f));
                 // delay and bring in outro
                 // playDelayedSound()
                 playDelayedSound(SoundName.OUTRO, 8f);
-                StartCoroutine(StartFade(mixer, "outro_volume", 6f, 1f));
+                StartCoroutine(StartFade(mixer, "outro_volume", 6f, 1f, 8f));
            }
         }
     }
