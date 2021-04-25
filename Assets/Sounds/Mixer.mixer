@@ -1,5 +1,38 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!243 &-9022067296803692728
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Arpeg
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 591b84a34751009449317b7d9ab07270
+  m_Children: []
+  m_Volume: e18b7ede535f7f94da0e803b46ce3ce5
+  m_Pitch: 65971f320a59e4241a07d20d01657bb9
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -1216641732572962129}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &-1216641732572962129
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 01f19c013c5f27446893c022defe004f
+  m_EffectName: Attenuation
+  m_MixLevel: 125689fadaea98841b86ed2ce8ec80cf
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &-467509127461090527
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -29,11 +62,14 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: e18b7ede535f7f94da0e803b46ce3ce5
+    name: volume
   m_AudioMixerGroupViews:
   - guids:
     - 421f576720d078d47af4e5c22ce99fa0
     - 981b757aa8d0c9247928ce14820afc60
+    - 591b84a34751009449317b7d9ab07270
     - 1e6cdf2e53346fd4bbff11becb98c5a3
     name: View
   m_CurrentViewIndex: 0
@@ -84,6 +120,8 @@ AudioMixerSnapshotController:
   m_SnapshotID: 26c45252810866644b9c6fdf90d469ca
   m_FloatValues:
     23b3dfc1dfd1b0942903d64120b20a40: 1.6
+    44be68b606efd7b438e6be36e08893e4: -80
+    e18b7ede535f7f94da0e803b46ce3ce5: -80
   m_TransitionOverrides: {}
 --- !u!243 &4456908084743541259
 AudioMixerGroupController:
@@ -94,7 +132,8 @@ AudioMixerGroupController:
   m_Name: Soundtrack
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 981b757aa8d0c9247928ce14820afc60
-  m_Children: []
+  m_Children:
+  - {fileID: -9022067296803692728}
   m_Volume: 597bc09feb42d9948852398c0cfa9a60
   m_Pitch: 36c0fba376cb2f047a9603eaf67c5349
   m_Send: 00000000000000000000000000000000

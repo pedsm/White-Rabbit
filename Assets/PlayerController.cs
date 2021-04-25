@@ -110,7 +110,8 @@ public class PlayerController : MonoBehaviour
             if(absoluteVel > fallDmgThreshold) {
                 print("Take damage" + maxYVel.ToString());
                 takeDamage(Mathf.Pow(absoluteVel - fallDmgThreshold, 2));
-                sampleController.playSound(SoundName.DAMAGED, absoluteVel/15);
+                print(absoluteVel/25);
+                sampleController.playSound(SoundName.DAMAGED, absoluteVel/25);
             }
             maxYVel = 0;
         }
