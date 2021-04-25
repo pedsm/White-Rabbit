@@ -24,18 +24,15 @@ public class FXController : MonoBehaviour
         volume.profile.TryGet<ChromaticAberration>(out chromaticAberration);
         volume.profile.TryGet<Bloom>(out bloom);
         volume.profile.TryGet<LensDistortion>(out lensDistortion);
-        print("jhoi");
     }
 
     // Update is called once per frame
     void Update()
     {
-        print("jhoi");
         chromaticAberration.intensity.Override(chromaticAberrationIntesity);
         bloom.intensity.Override(bloomIntesity);
         lensDistortion.intensity.Override(lensDistortionIntesity);
         decay();
-        print(chromaticAberrationIntesity);
     }
 
     void decay() {
@@ -54,5 +51,11 @@ public class FXController : MonoBehaviour
 
     public void chromaticHit() {
         chromaticAberrationIntesity = 1f;
+    }
+    public void bloomHit() {
+        bloomIntesity = 1f;
+    }
+    public void lensHit() {
+        lensDistortionIntesity = 1f;
     }
 }

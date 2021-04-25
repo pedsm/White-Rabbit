@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HeliSkull : MonoBehaviour
 {
@@ -37,7 +38,11 @@ public class HeliSkull : MonoBehaviour
         if(collision.collider.name == "Player") {
             //Collide with player
             PlayerController player = collision.collider.GetComponent<PlayerController>();
-
+            FXController fXController = GameObject.Find("FX").GetComponent<FXController>();
+            print(fXController);
+            fXController.chromaticHit();
+            fXController.bloomHit();
+            fXController.lensHit();
         }
     }
 }
