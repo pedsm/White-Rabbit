@@ -10,12 +10,14 @@ public enum SoundName
     LAND,
     DAMAGED,
     HIT,
-    ARPEG
+    ARPEG,
+    PADS,
+    KICK
 }
 
 public class SampleController : MonoBehaviour {
 
-    public AudioMixer arpegio;
+    public AudioMixer mixer;
 
     private AudioSource[] sounds;
 
@@ -36,9 +38,6 @@ public class SampleController : MonoBehaviour {
         land = sounds[(int)SoundName.LAND];
         damaged = sounds[(int)SoundName.DAMAGED];
         hit = sounds[(int)SoundName.HIT];
-
-        StartCoroutine(StartFade(arpegio, "volume", 20f, 1f));
-
     }
 
     public void playSound(SoundName soundName) {
@@ -71,10 +70,24 @@ public class SampleController : MonoBehaviour {
         yield break;
     }
 
+
     public void setCurrentStage(int newStage) {
         if(currentStage < newStage) {
            Debug.Log("Entering stage: "+ newStage);
            currentStage = newStage;
+
+           if (currentStage == 1) {
+                StartCoroutine(StartFade(mixer, "arpeg_volume", 20f, 1f));
+           }
+           if (currentStage == 2) {
+                mixer.SetFloat("arpeg_volume", 1f);
+                StartCoroutine(StartFade(mixer, "pad_volume", 20f, 1f));
+           }
+           if (currentStage == 3) {
+                mixer.SetFloat("arpeg_volume", 1f);
+                mixer.SetFloat("pad_volume", 1f);
+                mixer.SetFloat("kick_volume", 1f);
+           }
         }
     }
 }
