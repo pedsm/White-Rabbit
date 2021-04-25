@@ -48,6 +48,9 @@ public class HeliSkull : MonoBehaviour
     }
     void triggerEffects() {
         FXController fXController = GameObject.Find("FX").GetComponent<FXController>();
+        SampleController sampleController = GameObject.Find("Audio Controller").GetComponent<SampleController>();
+        sampleController.playSound(SoundName.HIT);
+
         fXController.chromaticHit();
         fXController.bloomHit();
 
