@@ -19,7 +19,7 @@ public class EndSceneController : MonoBehaviour
         Restart();
     }
     void Restart() {
-        if (Input.GetKeyDown(KeyCode.R)) {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton1)) {
           SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         }
     } 
