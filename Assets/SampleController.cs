@@ -84,11 +84,11 @@ public class SampleController : MonoBehaviour {
            currentStage = newStage;
 
            if (currentStage == 1) {
-                StartCoroutine(StartFade(mixer, "arpeg_volume", 20f, 0f, 0f));
+                StartCoroutine(StartFade(mixer, "arpeg_volume", 20f, 1f, 0f));
            }
            if (currentStage == 2) {
                 mixer.SetFloat("arpeg_volume", 1f);
-                StartCoroutine(StartFade(mixer, "pad_volume", 20f, 0f, 0f));
+                StartCoroutine(StartFade(mixer, "pad_volume", 20f, 1f, 0f));
            }
            if (currentStage == 3) {
                 mixer.SetFloat("arpeg_volume", 0f);
