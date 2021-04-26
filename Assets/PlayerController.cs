@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     void Restart() {
-        if (Input.GetKeyDown(KeyCode.R)) {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton1)) {
           SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
@@ -102,29 +102,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void FallDamageChecker() {
-        if(!isGrounded) {
-            if(maxYVel > body.velocity.y) {
-                maxYVel = body.velocity.y;
-            }
-        }
-        if(isGrounded && body.velocity.y == 0) {
-            float absoluteVel = Mathf.Abs(maxYVel);
-            // playing fall sound with differing volume based on impact
-            if (absoluteVel > 2) {
-                sampleController.playSound(SoundName.LAND, absoluteVel/13);
-            }
-            // fall damage calculation
-            if(absoluteVel > fallDmgThreshold) {
-                print("Take damage" + maxYVel.ToString());
-                takeDamage(Mathf.Pow(absoluteVel - fallDmgThreshold, 2));
-                print(absoluteVel/25);
-                sampleController.playSound(SoundName.DAMAGED, absoluteVel/25);
-            }
-            maxYVel = 0;
-        }
-    }
-
     void OnCollisionEnter2D(Collision2D collision) {
         if(collision.collider.name == "Floors_Walls") {
             collide(collision);
@@ -132,13 +109,12 @@ public class PlayerController : MonoBehaviour
     }
     void collide(Collision2D collision) {
         float absoluteVel = collision.relativeVelocity.magnitude;
-        if (absoluteVel > 2) {
+        if (absoluteVel > 2 && isAlive()) {
             sampleController.playSound(SoundName.LAND, absoluteVel/13);
         }
         if(absoluteVel > fallDmgThreshold) {
             print("Take damage" + maxYVel.ToString());
             takeDamage(Mathf.Pow(absoluteVel - fallDmgThreshold, 2));
-            sampleController.playSound(SoundName.DAMAGED, absoluteVel/15);
         }
         var contacts = new List<ContactPoint2D>();
         collision.GetContacts(contacts);
@@ -169,7 +145,11 @@ public class PlayerController : MonoBehaviour
     }
 
     public void takeDamage(float dmgValue) {
-        hp = hp - Mathf.RoundToInt(dmgValue);
+        if(dmgValue > 5) {
+            hp = hp - Mathf.RoundToInt(dmgValue);
+            float dmgVolume = Mathf.Lerp(0.3f, 1, dmgValue/100);
+            sampleController.playSound(SoundName.DAMAGED, dmgVolume);
+        }
     }
 
     void CheckIfGrounded() {
