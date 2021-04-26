@@ -16,7 +16,7 @@ public class Timer : MonoBehaviour
     void Start()
     {
         //Remove the -1000 when the game is done
-        startTime = Time.time - 100;
+        startTime = Time.time;
         textField = GetComponent<Text>();
     }
 
