@@ -108,12 +108,14 @@ public class PlayerController : MonoBehaviour
         }
     }
     void collide(Collision2D collision) {
+        if(!isAlive()) {
+            return;
+        }
         float absoluteVel = collision.relativeVelocity.magnitude;
-        if (absoluteVel > 2 && isAlive()) {
+        if (absoluteVel > 5) {
             sampleController.playSound(SoundName.LAND, absoluteVel/13);
         }
         if(absoluteVel > fallDmgThreshold) {
-            print("Take damage" + maxYVel.ToString());
             takeDamage(Mathf.Pow(absoluteVel - fallDmgThreshold, 2));
         }
         var contacts = new List<ContactPoint2D>();
@@ -145,8 +147,12 @@ public class PlayerController : MonoBehaviour
     }
 
     public void takeDamage(float dmgValue) {
+        if(!isAlive()) {
+            return;
+        }
         if(dmgValue > 5) {
             hp = hp - Mathf.RoundToInt(dmgValue);
+            print("Dmg:" + dmgValue.ToString());
             float dmgVolume = Mathf.Lerp(0.3f, 1, dmgValue/100);
             sampleController.playSound(SoundName.DAMAGED, dmgVolume);
         }
