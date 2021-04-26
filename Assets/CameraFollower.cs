@@ -16,12 +16,9 @@ public class CameraFollower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       float y = Input.GetAxisRaw("Vertical");
-       float yDiff = downOffset * y;
-
        transform.position = new Vector3(
            player.position.x + offset.x,
-           player.position.y + offset.y + yDiff,
+           player.position.y + offset.y,
            offset.z
         );
     }
