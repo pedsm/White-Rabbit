@@ -30,7 +30,7 @@ public class Timer : MonoBehaviour
         if(flipTime == -1) {
             textField.text = Mathf.RoundToInt((Time.time - startTime)).ToString();
         } else {
-            int timeLeft = Mathf.RoundToInt(firstSectionDuration - ((Time.time - flipTime) * 2));
+            int timeLeft = Mathf.RoundToInt(firstSectionDuration - ((Time.time - flipTime) * 1.25f));
             textField.text = timeLeft.ToString();
             if(timeLeft <= 0) {
                 GameObject.Find("Player").GetComponent<PlayerController>().takeDamage(100);
