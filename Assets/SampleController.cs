@@ -35,6 +35,12 @@ public class SampleController : MonoBehaviour {
 
     void Start() {
         sounds = GetComponents<AudioSource>();
+        //initialise mixer levels
+        mixer.SetFloat("arpeg_volume", -80f);
+        mixer.SetFloat("pad_volume", -80f);
+        mixer.SetFloat("kick_volume", -80f);
+        mixer.SetFloat("soundtrack_volume", 0f);
+        mixer.SetFloat("outro_volume", -80f);
     }
 
     public void playSound(SoundName soundName) {
@@ -78,22 +84,22 @@ public class SampleController : MonoBehaviour {
            currentStage = newStage;
 
            if (currentStage == 1) {
-                StartCoroutine(StartFade(mixer, "arpeg_volume", 20f, 1f, 0f));
+                StartCoroutine(StartFade(mixer, "arpeg_volume", 20f, 0f, 0f));
            }
            if (currentStage == 2) {
                 mixer.SetFloat("arpeg_volume", 1f);
-                StartCoroutine(StartFade(mixer, "pad_volume", 20f, 1f, 0f));
+                StartCoroutine(StartFade(mixer, "pad_volume", 20f, 0f, 0f));
            }
            if (currentStage == 3) {
-                mixer.SetFloat("arpeg_volume", 1f);
-                mixer.SetFloat("pad_volume", 1f);
-                mixer.SetFloat("kick_volume", 1f);
+                mixer.SetFloat("arpeg_volume", 0f);
+                mixer.SetFloat("pad_volume", 0f);
+                mixer.SetFloat("kick_volume", 0f);
            }
            if (currentStage == 4) {
                //uncoment these if you want to test
-                mixer.SetFloat("arpeg_volume", 1f);
-                mixer.SetFloat("pad_volume", 1f);
-                mixer.SetFloat("kick_volume", 1f);
+                mixer.SetFloat("arpeg_volume", 0f);
+                mixer.SetFloat("pad_volume", 0f);
+                mixer.SetFloat("kick_volume", 0f);
                 playSound(SoundName.BLACKHOLE);
                 StartCoroutine(StartFade(mixer, "soundtrack_volume", 8f, 0f, 0f));
                 // delay and bring in outro
