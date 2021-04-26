@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
@@ -44,9 +45,24 @@ public class Timer : MonoBehaviour
 
     public void finishGame() {
         endTime = Time.time;
+        TimeHolder.setDuration(endTime - startTime);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public float getFinalTime() {
         return endTime - startTime;
+    }
+}
+
+
+public static class TimeHolder {
+    private static float duration = 0;
+
+    static public void setDuration(float dur) {
+        duration = dur;
+    }
+
+    static public float getDuration() {
+        return duration;
     }
 }

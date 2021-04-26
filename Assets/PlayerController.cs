@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D body;
@@ -46,6 +47,12 @@ public class PlayerController : MonoBehaviour
             body.velocity = new Vector2(0,0);
             animator.SetBool("Alive", isAlive());
             animator.SetBool("isJumping", false);
+            Restart();
+        }
+    }
+    void Restart() {
+        if (Input.GetKeyDown(KeyCode.R)) {
+          SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
