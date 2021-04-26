@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     private int? lastContactCount = null;
 
-    public int hp = 100;
+    public int hp = 175;
 
     // Start is called before the first frame update
     void Start()

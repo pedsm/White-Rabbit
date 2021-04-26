@@ -15,7 +15,7 @@ public class EndSceneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameObject.Find("time").GetComponent<Text>().text = TimeHolder.getDuration().ToString();
+        GameObject.Find("time").GetComponent<Text>().text = "Your time was:\n" + TimeHolder.getDuration().ToString() + "s";
         Restart();
     }
     void Restart() {

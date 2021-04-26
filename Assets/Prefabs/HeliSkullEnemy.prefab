@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8746713121814438538}
   - component: {fileID: 8746713121814438548}
   - component: {fileID: 8746713121814438549}
+  - component: {fileID: 5716289628763080249}
   m_Layer: 0
   m_Name: HeliSkullEnemy
   m_TagString: Untagged
@@ -262,3 +263,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5716289628763080249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5345409049794878798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bd72bd9e98aa084ea19990c31870114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
