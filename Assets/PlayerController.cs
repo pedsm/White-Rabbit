@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        
+
     }
 
     // Update is called once per frame
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     void Jump()
     {
         animator.SetBool("isJumping", !isGrounded);
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton1)) && isGrounded)
         {
             isJumping = true;
             jumpTimeCounter = jumpTime;
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
             sampleController.playSound(SoundName.JUMP);
         }
 
-        if(Input.GetKey(KeyCode.Space) && isJumping == true) {
+        if((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.JoystickButton1)) && isJumping == true) {
             if (jumpTimeCounter > 0) {
                 Vector2 targetVelocity = new Vector2(body.velocity.x, jumpForce);
                 Vector2 velocity = body.velocity;
@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Space)) {
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.JoystickButton1)) {
             isJumping = false;
         }
 
@@ -155,13 +155,13 @@ public class PlayerController : MonoBehaviour
             }
             collide(collision);
         }
-        
+
     }
     void OnCollisionExit2D(Collision2D other) {
         lastContactCount = null;
     }
 
-    void takeDamage(float dmgValue) {
+    public void takeDamage(float dmgValue) {
         hp = hp - Mathf.RoundToInt(dmgValue);
     }
 
@@ -182,6 +182,7 @@ public class PlayerController : MonoBehaviour
         body.gravityScale = -2;
         GetComponent<Transform>().rotation = Quaternion.Euler(0,0,180f);
         GameObject.Find("Camera").GetComponent<Camera>().GetComponent<Transform>().rotation = Quaternion.Euler(0,0,180f);
+        GameObject.Find("Timer").GetComponent<Timer>().flip();
         jumpForce = jumpForce * -1;
     }
 
@@ -198,6 +199,9 @@ public class PlayerController : MonoBehaviour
         }
         if(stage == 5) {
             flip();
+        }
+        if(stage == 6) {
+            GameObject.Find("Timer").GetComponent<Timer>().finishGame();
         }
         sampleController.setCurrentStage(stage);
     }
