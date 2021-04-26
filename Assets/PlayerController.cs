@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour
         lastContactCount = null;
     }
 
-    void takeDamage(float dmgValue) {
+    public void takeDamage(float dmgValue) {
         hp = hp - Mathf.RoundToInt(dmgValue);
     }
 
@@ -182,6 +182,7 @@ public class PlayerController : MonoBehaviour
         body.gravityScale = -2;
         GetComponent<Transform>().rotation = Quaternion.Euler(0,0,180f);
         GameObject.Find("Camera").GetComponent<Camera>().GetComponent<Transform>().rotation = Quaternion.Euler(0,0,180f);
+        GameObject.Find("Timer").GetComponent<Timer>().flip();
         jumpForce = jumpForce * -1;
     }
 
@@ -198,6 +199,9 @@ public class PlayerController : MonoBehaviour
         }
         if(stage == 5) {
             flip();
+        }
+        if(stage == 6) {
+            GameObject.Find("Timer").GetComponent<Timer>().finishGame();
         }
         sampleController.setCurrentStage(stage);
     }
